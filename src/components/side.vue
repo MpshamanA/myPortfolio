@@ -1,12 +1,11 @@
 <template>
   <div>
-    <aside class="side">
+    <aside class="side sticky">
       <h2>TYPE</h2>
       <ul>
-        <li class="type">リード</li>
+        <li class="type">アイテム</li>
+        <li class="type">フード</li>
         <li class="type">ペット服</li>
-        <li class="type">おもちゃ</li>
-        <li class="type">おやつ</li>
       </ul>
     </aside>
   </div>
@@ -15,6 +14,16 @@
 <script>
 export default {
   name: "side",
+  props: {
+    //親コンポーネントでタイプネームを決める
+
+    testtype: String,
+  },
+  data() {
+    return {
+      sortKey: "",
+    };
+  },
 };
 </script>
 
@@ -27,7 +36,11 @@ export default {
   grid-column-end: 2;
   grid-row-start: 2;
   grid-row-end: 3;
-  background-color: blueviolet;
+}
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 80px;
 }
 .type {
   list-style: none;
