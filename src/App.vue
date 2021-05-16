@@ -5,58 +5,62 @@
         class="bone-img bone"
         src="./assets/img/骨のフリーアイコン.png"
         alt="骨"
+        @click="homeClick()"
       />
-      <h1 class="bone">Pet Items</h1>
+      <h1 class="bone" @click="homeClick()">Pet Items</h1>
     </div>
-    <aside class="side sticky">
-      <h2>TYPE</h2>
-      <ul>
-        <!-- サイドバーのアイテムを選択すると背景色がグレーになる
+
+    <aside class="side">
+      <div class="sticky">
+        <h2>TYPE</h2>
+        <ul>
+          <!-- サイドバーのアイテムを選択すると背景色がグレーになる
         カーソルを載せると背景色がライトグレーになる -->
-        <li
-          @click="select('アイテム'), switchColor1()"
-          class="type"
-          :class="{
-            gray: sideItem,
-            white: !sideItem,
-            lightGray: hoverItem && !sideItem,
-          }"
-          @mouseover="mouseover1()"
-          @mouseleave="mouseleave1()"
-        >
-          アイテム
-        </li>
-        <!-- サイドバーのフードを選択すると背景色がグレーになる
+          <li
+            @click="select('アイテム'), switchColor1()"
+            class="type"
+            :class="{
+              gray: sideItem,
+              white: !sideItem,
+              lightGray: hoverItem && !sideItem,
+            }"
+            @mouseover="mouseover1()"
+            @mouseleave="mouseleave1()"
+          >
+            グッズ
+          </li>
+          <!-- サイドバーのフードを選択すると背景色がグレーになる
         カーソルを載せると背景色がライトグレーになる -->
-        <li
-          @click="select('フード'), switchColor2()"
-          class="type"
-          :class="{
-            gray: sideFood,
-            white: !sideFood,
-            lightGray: hoverFood && !sideFood,
-          }"
-          @mouseover="mouseover2()"
-          @mouseleave="mouseleave2()"
-        >
-          フード
-        </li>
-        <!-- サイドバーのペット服を選択すると背景色がグレーになる
+          <li
+            @click="select('フード'), switchColor2()"
+            class="type"
+            :class="{
+              gray: sideFood,
+              white: !sideFood,
+              lightGray: hoverFood && !sideFood,
+            }"
+            @mouseover="mouseover2()"
+            @mouseleave="mouseleave2()"
+          >
+            フード
+          </li>
+          <!-- サイドバーのペット服を選択すると背景色がグレーになる
         カーソルを載せると背景色がライトグレーになる -->
-        <li
-          @click="select('ペット服'), switchColor3()"
-          class="type"
-          :class="{
-            gray: sideFastion,
-            white: !sideFastion,
-            lightGray: hoverFastion && !sideFastion,
-          }"
-          @mouseover="mouseover3()"
-          @mouseleave="mouseleave3()"
-        >
-          ペット服
-        </li>
-      </ul>
+          <li
+            @click="select('ペット服'), switchColor3()"
+            class="type"
+            :class="{
+              gray: sideFastion,
+              white: !sideFastion,
+              lightGray: hoverFastion && !sideFastion,
+            }"
+            @mouseover="mouseover3()"
+            @mouseleave="mouseleave3()"
+          >
+            ペット服
+          </li>
+        </ul>
+      </div>
     </aside>
     <Items
       :class="{ fedeIn: classSwitch, fedeIn2: !classSwitch }"
@@ -87,6 +91,13 @@ export default {
   methods: {
     select(e) {
       this.type = e;
+    },
+    homeClick() {
+      this.type = "";
+      this.sideItem = false;
+      this.sideFood = false;
+      this.sideFastion = false;
+      this.classSwitch = !this.classSwitch;
     },
     switchColor1() {
       //アイテム
@@ -174,8 +185,11 @@ export default {
 }
 .bone {
   display: inline-block;
+  cursor: pointer;
 }
+
 .side {
+  /* サイドバーを固定させるには親要素に position: flex;を当てる */
   box-sizing: border-box;
   padding: 0 10px;
   background-color: #fff;
@@ -183,11 +197,22 @@ export default {
   grid-column-end: 2;
   grid-row-start: 2;
   grid-row-end: 3;
+  position: flex;
+}
+.side li {
+  font-size: 14px;
+}
+.side h2 {
+  border-bottom: solid 1px #dddddd;
 }
 .sticky {
+  /* サイドバーを固定させるには子要素に position: sticky;を当てる */
   position: -webkit-sticky;
   position: sticky;
   top: 80px;
+}
+.sticky h2 {
+  font-size: 13px;
 }
 .type {
   list-style: none;
